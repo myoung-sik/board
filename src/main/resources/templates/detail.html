@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+
+<h1>글 상세보기</h1>
+
+<p>번호: <span th:text="${board.id}"></span></p>
+<p>제목: <span th:text="${board.title}"></span></p>
+<p>내용: <span th:text="${board.content}"></span></p>
+
+<br>
+
+<a th:href="@{/edit(id=${board.id})}">수정</a>
+<a th:href="@{/delete(id=${board.id})}">삭제</a>
+<a href="/list">목록으로</a>
+
+</body>
+</html>
