@@ -1,35 +1,63 @@
+# Board Project
+
+Spring Boot와 JPA를 활용한 게시판 프로젝트입니다.  
+게시글 CRUD 및 페이징 기능을 구현하며 Spring MVC 구조와 데이터 흐름을 학습하기 위해 제작하였습니다.
 
 ---
 
-# 🔥 5. README 기본 틀 (이대로 시작해라)
+# 📌 개발 환경
 
-👉 일단 이거 복붙해도 된다 (초안용)
-
-```markdown
-# 게시판 CRUD 프로젝트
-
-## 📌 프로젝트 소개
-Spring Boot와 JPA를 사용하여 게시판 CRUD 기능을 구현한 프로젝트입니다.
-
-## 🛠 기술 스택
-- Java
+- Java 17
 - Spring Boot
 - JPA
 - MariaDB
-- Thymeleaf
+- Gradle
+- IntelliJ IDEA
 
-## 📂 프로젝트 구조
-Controller → Service → Repository → DB 구조로 구성했습니다.
+---
 
-## 📌 구현 기능
-- 게시글 작성
-- 게시글 목록 조회
-- 게시글 상세 조회
-- 게시글 수정
-- 게시글 삭제
-- 게시글 페이징
+# 🛠 기술 스택
 
-## 💡 배운 점
-- Spring MVC 요청 흐름 이해
-- JPA를 활용한 데이터 처리
-- 계층 구조 분리 (Controller-Service-Repository)
+## Backend
+- Java
+- Spring Boot
+- Spring MVC
+- JPA
+
+## Database
+- MariaDB
+
+## Frontend
+- HTML
+- CSS
+
+## Version Control
+- Git
+- GitHub
+
+---
+
+# ✨ 구현 기능
+
+- 게시글 작성(Create)
+- 게시글 목록 조회(Read)
+- 게시글 수정(Update)
+- 게시글 삭제(Delete)
+- 게시글 페이징 처리
+
+---
+
+# 📂 프로젝트 구조
+
+```text
+src
+ ┣ main
+ ┃ ┣ java
+ ┃ ┃ ┗ com.example.board
+ ┃ ┃   ┣ controller
+ ┃ ┃   ┣ entity
+ ┃ ┃   ┣ repository
+ ┃ ┃   ┗ service
+ ┃ ┗ resources
+ ┃   ┣ templates
+ ┃   ┗ static
