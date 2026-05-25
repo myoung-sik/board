@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+
+<h1>로그인</h1>
+
+<!--
+    action="/login"
+    로그인 버튼을 누르면 POST /login 요청을 보낸다.
+
+    method="post"
+    아이디와 비밀번호를 서버로 전송하기 때문에 POST 방식을 사용한다.
+-->
+<form action="/login" method="post">
+
+    <!--
+        name="username"
+        Controller의 login(String username, ...) 파라미터와 연결된다.
+    -->
+    아이디
+    <input type="text" name="username">
+
+    <br><br>
+
+    <!--
+        name="password"
+        Controller의 login(..., String password, ...) 파라미터와 연결된다.
+    -->
+    비밀번호
+    <input type="password" name="password">
+
+    <br><br>
+
+    <button type="submit">로그인</button>
+
+</form>
+
+<br>
+
+<a href="/join">회원가입</a>
+<a href="/list">게시글 목록</a>
+
+</body>
+</html>
