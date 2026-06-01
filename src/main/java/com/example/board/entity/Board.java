@@ -24,6 +24,10 @@ public class Board {
     // 게시글 내용을 저장하는 필드
     private String content;
 
+    // 게시글 작성자 이름을 저장하는 필드
+    // 로그인한 회원의 name 값을 저장한다.
+    private String writer;
+
     // JPA는 Entity 객체를 생성할 때 기본 생성자를 필요로 한다.
     // 그래서 매개변수가 없는 생성자를 반드시 작성한다.
     public Board() {
@@ -57,5 +61,15 @@ public class Board {
     // content 값을 설정하는 setter
     public void setContent(String content) {
         this.content = content;
+    }
+
+    // writer 값을 가져오는 getter
+    public String getWriter() {
+        return writer;
+    }
+
+    // writer 값을 설정하는 setter
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 }

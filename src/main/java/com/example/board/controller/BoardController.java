@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import com.example.board.entity.Member;
 
 // @Controller는 이 클래스가 웹 요청을 처리하는 Controller임을 의미한다.
 // 게시판 관련 요청을 담당한다.
@@ -48,10 +49,23 @@ public class BoardController {
     // write.html의 form에서 POST 방식으로 전달된 title, content를 받는다.
     @PostMapping("/write")
     public String write(@RequestParam String title,
-                        @RequestParam String content) {
+                        @RequestParam String content,
+                        HttpSession session) {
+
+        // 세션에서 로그인한 회원 정보 가져오기
+        Object loginMember = session.getAttribute("loginMember");
+
+        // 혹시라도 로그인하지 않은 사용자가 POST 요청을 직접 보낸 경우 차단
+        if (loginMember == null) {
+            return "redirect:/login";
+        }
+
+        // 세션에서 꺼낸 Object를 Member 타입으로 형변환한다.
+        Member member = (Member) loginMember;
 
         // 입력받은 제목과 내용을 Service로 전달하여 저장 처리
-        boardService.save(title, content);
+        // 로그인한 회원의 이름을 작성자로 저장한다.
+        boardService.save(title, content, member.getName());
 
         // 저장 후 목록 페이지로 이동
         // redirect는 브라우저에게 /list 주소로 다시 요청하라고 지시한다.

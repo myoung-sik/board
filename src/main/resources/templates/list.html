@@ -47,6 +47,7 @@
   <tr>
     <th>번호</th>
     <th>제목</th>
+    <th>작성자</th>
     <th>내용</th>
   </tr>
 
@@ -79,6 +80,9 @@
       <a th:href="@{/detail(id=${board.id})}"
          th:text="${board.title}">제목</a>
     </td>
+
+    <!-- 게시글 작성자 출력 -->
+    <td th:text="${board.writer}">작성자</td>
 
     <!-- 게시글 내용 출력 -->
     <td th:text="${board.content}">내용</td>

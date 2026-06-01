@@ -24,8 +24,8 @@ public class BoardService {
     }
 
     // 게시글 저장 기능
-    // Controller에서 전달받은 title, content를 board 객체에 담고 DB에 저장한다.
-    public void save(String title, String content) {
+    // Controller에서 전달받은 title, content, writer를 board 객체에 담고 DB에 저장한다.
+    public void save(String title, String content, String writer) {
         Board board = new Board();
 
         // 사용자가 입력한 제목을 Board 객체에 설정
@@ -33,6 +33,9 @@ public class BoardService {
 
         // 사용자가 입력한 내용을 Board 객체에 설정
         board.setContent(content);
+
+        // 로그인한 사용자의 이름을 작성자로 설정
+        board.setWriter(writer);
 
         // save()는 새로운 Entity면 INSERT를 수행한다.
         boardRepository.save(board);
