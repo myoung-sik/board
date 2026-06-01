@@ -2,6 +2,7 @@ package com.example.board.controller;
 
 import com.example.board.entity.Board;
 import com.example.board.service.BoardService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import jakarta.servlet.http.HttpSession;
 
 // @Controller는 이 클래스가 웹 요청을 처리하는 Controller임을 의미한다.
 // 게시판 관련 요청을 담당한다.
@@ -50,7 +52,8 @@ public class BoardController {
     // /list?page=0 형태로 페이지 번호를 받을 수 있다.
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
-                       Model model) {
+                       Model model,
+                       HttpSession session) {
 
         // PageRequest.of(현재 페이지 번호, 한 페이지당 게시글 수)
         // Page는 0부터 시작한다.
@@ -61,6 +64,12 @@ public class BoardController {
 
         // 조회한 게시글 목록을 "boards"라는 이름으로 HTML에 전달
         model.addAttribute("boards", boards);
+
+        // 세션에 저장된 로그인 회원 정보 가져오기
+        Object loginMember = session.getAttribute("loginMember");
+
+        // loginMember라는 이름으로 HTML에 전달
+        model.addAttribute("loginMember", loginMember);
 
         // teplates/list.html 화면 반환
         return "list";

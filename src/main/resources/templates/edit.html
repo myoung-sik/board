@@ -8,15 +8,47 @@
 
 <h1>글 수정</h1>
 
+<!--
+    수정 폼
+
+    action="/edit"
+    -> 수정 완료 버튼을 누르면 POST /edit 요청을 보낸다.
+
+    method="post"
+    -> 게시글 데이터를 수정하는 작업이므로 POST 방식을 사용한다.
+-->
 <form action="/edit" method="post">
+
+    <!--
+        hidden input
+
+        화면에는 보이지 않지만 서버로 id 값을 함께 보낸다.
+        어떤 게시글을 수정할지 알아야 하기 때문에 id가 반드시 필요하다.
+    -->
   <input type="hidden" name="id" th:value="${board.id}">
 
+  <!--
+      th:value="${board.title}"
+
+      기존 게시글 제목을 input 값으로 미리 넣어준다.
+      사용자는 기존 값을 보고 수정할 수 있다.
+  -->
   제목: <input type="text" name="title" th:value="${board.title}"><br><br>
 
+  <!--
+      textarea는 value 속성이 아니라 태그 사이에 내용을 넣는다.
+
+      th:text="${board.content}"
+      -> 기존 게시글 내용을 textarea 안에 출력한다.
+  -->
   내용:
   <textarea name="content" th:text="${board.content}"></textarea><br><br>
 
+  <!-- 수정 데이터를 POST /edit으로 전송 -->
   <button type="submit">수정 완료</button>
+
+  <!-- 상세 페이지로 돌아가기 -->
+  <a th:href="@{/detail(id=${board.id})}">취소</a>
 </form>
 </body>
 </html>

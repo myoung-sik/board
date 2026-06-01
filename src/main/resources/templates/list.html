@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+  xmlns:th는 Thymeleaf 문법을 사용하기 위한 설정이다.
+  th:text, th:each, th:href 같은 속성을 사용할 수 있게 해준다.
+-->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +12,37 @@
 
 <h1>글 목록</h1>
 
+<!--
+    로그인 상태 확인 영역
+
+    loginMember가 null이면 로그인하지 않은 상태
+    null이 아니면 로그인한 상태이다.
+-->
+
+<!-- 로그인한 경우 -->
+<div th:if="${loginMember != null}">
+
+  <!--
+      loginMember.name
+
+      세션에 저장된 Member 객체의 name 값을 출력한다.
+  -->
+  <span th:text="${loginMember.name}"></span>님 환영합니다
+
+  <br><br>
+
+  <!-- 로그아웃 요청 -->
+  <a href="/logout">로그아웃</a>
+</div>
+
+<!-- 로그인하지 않은 경우 -->
+<div th:if="${loginMember == null}">
+
+  <a href="/login">로그인</a>
+
+  <a href="/join">회원가입</a>
+</div>
+
 <table border="1">
   <tr>
     <th>번호</th>
@@ -15,32 +50,86 @@
     <th>내용</th>
   </tr>
 
+  <!--
+      th:each="board : ${boards}"
+
+      Controller에서 model.addAttribute("boards", boards)로 전달한
+      게시글 목록을 하나씩 꺼내 반복한다.
+
+      boards 안의 게시글 하나를 board라는 이름으로 사용한다.
+  -->
   <tr th:each="board : ${boards}">
+
+    <!--
+        th:text="${board.id}"
+
+        Board 객체의 id 값을 화면에 출력한다.
+    -->
     <td th:text="${board.id}">1</td>
     <td>
+      <!--
+          th:href="@{/detail(id=${board.id})}"
+
+          제목을 클릭하면 /detail?id=게시글번호 주소로 이동한다.
+          예: /detail?id=1
+
+          th:text="${board.title}"
+          -> 게시글 제목을 링크 텍스트로 출력한다.
+      -->
       <a th:href="@{/detail(id=${board.id})}"
          th:text="${board.title}">제목</a>
     </td>
+
+    <!-- 게시글 내용 출력 -->
     <td th:text="${board.content}">내용</td>
   </tr>
 </table>
 
 <br>
 
+<!-- 글쓰기 페이지로 이동 -->
 <a href="/write">글쓰기</a>
 
 <br><br>
 
+<!--
+    페이징 영역
+
+    boards는 Page<Board> 객체이다.
+    Page 객체는 현재 페이지 번호, 전체 페이지 수,
+    이전/다음 페이지 존재 여부 등을 가지고 있다.
+-->
 <div>
+  <!--
+      boards.hasPrevious()
+
+      이전 페이지가 있을 때만 '이전' 링크를 보여준다.
+      현재 페이지가 0페이지면 이전 페이지가 없으므로 표시되지 않는다.
+  -->
   <a th:if="${boards.hasPrevious()}"
      th:href="@{/list(page=${boards.number - 1})}">
     이전
   </a>
 
+  <!--
+      boards.number
+
+      현재 페이지 번호이다.
+      Spring의 페이지 번호는 0부터 시작하기 때문에
+      화면에는 +1 해서 보여준다.
+  -->
   <span th:text="${boards.number + 1}">1</span>
+
   /
+
+  <!-- 전체 페이지 수 출력 -->
   <span th:text="${boards.totalPages}">1</span>
 
+  <!--
+      boards.hasNext()
+
+      다음 페이지가 있을 때만 '다음' 링크를 보여준다.
+  -->
   <a th:if="${boards.hasNext()}"
      th:href="@{/list(page=${boards.number + 1})}">
     다음

@@ -8,7 +8,13 @@
 
 <h1>글 상세보기</h1>
 
-<p>번호: <span th:text="${board.id}"></span></p>
+<!--
+    Controller에서 model.addAttribute("board", board)로 전달한
+    단일 게시글 데이터를 화면에 출력한다.
+-->
+<p>번호:
+    <!-- 게시글 id 출력 -->
+    <span th:text="${board.id}"></span></p>
 <p>제목: <span th:text="${board.title}"></span></p>
 <p>내용: <span th:text="${board.content}"></span></p>
 
