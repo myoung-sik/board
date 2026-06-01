@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import jakarta.servlet.http.HttpSession;
 
 // @Controller는 이 클래스가 웹 요청을 처리하는 Controller임을 의미한다.
 // 게시판 관련 요청을 담당한다.
@@ -30,7 +29,18 @@ public class BoardController {
     // 글쓰기 화면을 보여주는 요청
     // 브라우저에서 /write로 접속하면 write.html을 보여준다.
     @GetMapping("/write")
-    public String writeForm() {
+    public String writeForm(HttpSession session) {
+
+        // 세션에 로그인 정보가 있는지 확인
+        Object loginMember = session.getAttribute("loginMember");
+
+        // 로그인 안 한 경우
+        if (loginMember == null) {
+            // 로그인 페이지로 이동
+            return "redirect:/login";
+        }
+
+        // 로그인한 경우
         return "write";
     }
 
